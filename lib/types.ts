@@ -1,7 +1,15 @@
 // Shared domain types for the cafe app.
 // Used across every surface: marketing, ordering, staff POS, and admin.
 
-export type CategoryId = "coffee" | "tea" | "cold" | "pastries" | "food";
+export type CategoryId =
+  | "hot-coffee"
+  | "cold-coffee"
+  | "frappuccino"
+  | "hot-tea"
+  | "cold-drink"
+  | "hot-drink"
+  | "bakery"
+  | "food";
 
 export interface Category {
   id: CategoryId;

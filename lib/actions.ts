@@ -55,7 +55,7 @@ export async function deleteItemAction(id: string) {
 export async function addItemAction(formData: FormData) {
   const name = String(formData.get("name") ?? "").trim();
   const priceRupees = Number(formData.get("price") ?? 0);
-  const category = String(formData.get("category") ?? "coffee") as CategoryId;
+  const category = String(formData.get("category") ?? "hot-coffee") as CategoryId;
   const description = String(formData.get("description") ?? "").trim();
   const emoji = String(formData.get("emoji") ?? "☕").trim() || "☕";
 
