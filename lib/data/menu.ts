@@ -1,9 +1,10 @@
 import type { Category, CategoryId, MenuItem } from "@/lib/types";
 
 // --- Mock data layer -------------------------------------------------
-// This is the single source of truth for the menu while we build the UI.
-// Later this module can be swapped for a real database without changing
-// the components that consume `getMenu()` / `getCategories()`.
+// Single source of truth for the menu while we use mock data.
+// The array is mutable so the admin dashboard can edit it at runtime
+// (in-memory only — resets on server restart). Swap for a real DB later
+// without changing any call sites below.
 
 export const categories: Category[] = [
   { id: "coffee", name: "Coffee", description: "Espresso-based classics, pulled to order." },
@@ -13,7 +14,7 @@ export const categories: Category[] = [
   { id: "food", name: "Food", description: "Sandwiches, bowls, and all-day bites." },
 ];
 
-export const menuItems: MenuItem[] = [
+const menuItems: MenuItem[] = [
   // Coffee
   { id: "espresso", name: "Espresso", description: "A bold single shot with a rich crema.", pricePaise: 12000, category: "coffee", emoji: "☕", tags: ["hot", "classic"], available: true },
   { id: "cappuccino", name: "Cappuccino", description: "Equal parts espresso, steamed milk, and foam.", pricePaise: 18000, category: "coffee", emoji: "☕", tags: ["hot", "popular"], featured: true, available: true },
@@ -43,16 +44,14 @@ export const menuItems: MenuItem[] = [
   { id: "avocado-toast", name: "Avocado Toast", description: "Smashed avocado on sourdough, chili flakes.", pricePaise: 26000, category: "food", emoji: "🥑", tags: ["veg"], available: true },
 ];
 
-// --- Accessors -------------------------------------------------------
-// Async so callers already `await` them; swapping in a real DB later
-// won't change any call sites.
+// --- Read accessors --------------------------------------------------
 
 export async function getCategories(): Promise<Category[]> {
   return categories;
 }
 
 export async function getMenu(): Promise<MenuItem[]> {
-  return menuItems;
+  return [...menuItems];
 }
 
 export async function getMenuByCategory(
@@ -62,9 +61,30 @@ export async function getMenuByCategory(
 }
 
 export async function getFeaturedItems(): Promise<MenuItem[]> {
-  return menuItems.filter((item) => item.featured);
+  return menuItems.filter((item) => item.featured && item.available !== false);
 }
 
 export async function getMenuItem(id: string): Promise<MenuItem | undefined> {
   return menuItems.find((item) => item.id === id);
+}
+
+// --- Write accessors (used by the admin dashboard) -------------------
+
+export function toggleItemAvailability(id: string): void {
+  const item = menuItems.find((i) => i.id === id);
+  if (item) item.available = item.available === false;
+}
+
+export function addMenuItem(input: Omit<MenuItem, "id">): MenuItem {
+  const id =
+    input.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") ||
+    `item-${menuItems.length + 1}`;
+  const item: MenuItem = { ...input, id };
+  menuItems.push(item);
+  return item;
+}
+
+export function deleteMenuItem(id: string): void {
+  const idx = menuItems.findIndex((i) => i.id === id);
+  if (idx !== -1) menuItems.splice(idx, 1);
 }
