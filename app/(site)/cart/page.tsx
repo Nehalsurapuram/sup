@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCart } from "@/components/cart/cart-context";
 import { formatPrice } from "@/lib/format";
+import { LineThumb } from "@/components/line-thumb";
 
 // Cart page — review and adjust items before checkout.
 export default function CartPage() {
@@ -31,9 +32,7 @@ export default function CartPage() {
               key={line.itemId}
               className="flex items-center gap-4 rounded-card border border-border bg-surface p-4"
             >
-              <span className="text-3xl" aria-hidden>
-                {line.emoji}
-              </span>
+              <LineThumb itemId={line.itemId} emoji={line.emoji} />
               <div className="flex-1">
                 <p className="font-semibold text-foreground">{line.name}</p>
                 <p className="text-sm text-muted">

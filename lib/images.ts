@@ -74,3 +74,9 @@ export function itemImage(item: MenuItem, w = 600, h = 450): string {
   const keyword = KEYWORDS[item.id] ?? CATEGORY_KEYWORDS[item.category];
   return `https://loremflickr.com/${w}/${h}/${keyword}?lock=${lock(item.id)}`;
 }
+
+// Photo for an order/cart line, which only carries an item id.
+export function lineImage(itemId: string, w = 160, h = 160): string {
+  const keyword = KEYWORDS[itemId] ?? "coffee";
+  return `https://loremflickr.com/${w}/${h}/${keyword}?lock=${lock(itemId)}`;
+}

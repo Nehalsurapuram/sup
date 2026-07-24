@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getOrder } from "@/lib/data/orders";
 import { formatPrice } from "@/lib/format";
+import { LineThumb } from "@/components/line-thumb";
 
 // Order confirmation — Server Component reads the order from the store.
 export default async function OrderPage(props: PageProps<"/order/[id]">) {
@@ -32,12 +33,14 @@ export default async function OrderPage(props: PageProps<"/order/[id]">) {
 
         <ul className="mt-8 space-y-2 text-left">
           {order.items.map((line) => (
-            <li
-              key={line.itemId}
-              className="flex items-center justify-between text-sm"
-            >
-              <span className="text-muted">
-                <span aria-hidden>{line.emoji}</span> {line.name} × {line.qty}
+            <li key={line.itemId} className="flex items-center gap-3 text-sm">
+              <LineThumb
+                itemId={line.itemId}
+                emoji={line.emoji}
+                className="h-10 w-10"
+              />
+              <span className="flex-1 text-muted">
+                {line.name} × {line.qty}
               </span>
               <span className="font-medium text-foreground">
                 {formatPrice(line.pricePaise * line.qty)}
