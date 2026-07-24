@@ -7,7 +7,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import type { MenuItem, OrderLine } from "@/lib/types";
+import type { OrderLine } from "@/lib/types";
 
 export type CartLine = OrderLine;
 
@@ -15,20 +15,20 @@ interface CartValue {
   lines: CartLine[];
   count: number;
   subtotalPaise: number;
-  add: (item: MenuItem) => void;
-  setQty: (itemId: string, qty: number) => void;
-  remove: (itemId: string) => void;
+  /** Add a fully-built (customized) line; merges by lineId. */
+  add: (line: CartLine) => void;
+  setQty: (lineId: string, qty: number) => void;
+  remove: (lineId: string) => void;
   clear: () => void;
 }
 
 const CartContext = createContext<CartValue | null>(null);
-const STORAGE_KEY = "caffora.cart.v1";
+const STORAGE_KEY = "caffora.cart.v2";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
-  // Load persisted cart on mount.
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -39,42 +39,32 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setHydrated(true);
   }, []);
 
-  // Persist on change (after initial load).
   useEffect(() => {
     if (!hydrated) return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
   }, [lines, hydrated]);
 
   const value = useMemo<CartValue>(() => {
-    const add = (item: MenuItem) =>
+    const add = (line: CartLine) =>
       setLines((prev) => {
-        const existing = prev.find((l) => l.itemId === item.id);
+        const existing = prev.find((l) => l.lineId === line.lineId);
         if (existing) {
           return prev.map((l) =>
-            l.itemId === item.id ? { ...l, qty: l.qty + 1 } : l,
+            l.lineId === line.lineId ? { ...l, qty: l.qty + line.qty } : l,
           );
         }
-        return [
-          ...prev,
-          {
-            itemId: item.id,
-            name: item.name,
-            emoji: item.emoji,
-            pricePaise: item.pricePaise,
-            qty: 1,
-          },
-        ];
+        return [...prev, line];
       });
 
-    const setQty = (itemId: string, qty: number) =>
+    const setQty = (lineId: string, qty: number) =>
       setLines((prev) =>
         qty <= 0
-          ? prev.filter((l) => l.itemId !== itemId)
-          : prev.map((l) => (l.itemId === itemId ? { ...l, qty } : l)),
+          ? prev.filter((l) => l.lineId !== lineId)
+          : prev.map((l) => (l.lineId === lineId ? { ...l, qty } : l)),
       );
 
-    const remove = (itemId: string) =>
-      setLines((prev) => prev.filter((l) => l.itemId !== itemId));
+    const remove = (lineId: string) =>
+      setLines((prev) => prev.filter((l) => l.lineId !== lineId));
 
     const clear = () => setLines([]);
 

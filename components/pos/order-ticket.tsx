@@ -46,12 +46,15 @@ export function OrderTicket({ order }: { order: Order }) {
         {order.customerName} · {time}
       </p>
 
-      <ul className="mt-3 space-y-1 text-sm">
+      <ul className="mt-3 space-y-1.5 text-sm">
         {order.items.map((line) => (
-          <li key={line.itemId} className="flex justify-between text-foreground">
-            <span>
-              <span className="font-semibold">{line.qty}×</span> {line.name}
-            </span>
+          <li key={line.lineId} className="text-foreground">
+            <span className="font-semibold">{line.qty}×</span> {line.name}
+            {line.options.length > 0 && (
+              <span className="block pl-5 text-xs text-muted">
+                {line.options.join(" · ")}
+              </span>
+            )}
           </li>
         ))}
       </ul>

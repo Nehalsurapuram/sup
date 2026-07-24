@@ -29,6 +29,8 @@ export interface MenuItem {
   tags: string[];
   featured?: boolean;
   available?: boolean;
+  /** Approx. calories for the base (small / Tall) size, no add-ons. */
+  baseCalories?: number;
 }
 
 // --- Orders ----------------------------------------------------------
@@ -38,11 +40,18 @@ export type OrderStatus = "new" | "preparing" | "ready" | "completed";
 export type OrderType = "dine-in" | "takeaway";
 
 export interface OrderLine {
+  /** Unique per (item + customization) combo, so identical picks merge. */
+  lineId: string;
   itemId: string;
   name: string;
   emoji: string;
+  /** Unit price including customizations, in paise. */
   pricePaise: number;
   qty: number;
+  /** Approx. calories per unit, including customizations. */
+  calories: number;
+  /** Human-readable selections, e.g. ["Grande", "Oat milk", "+1 shot"]. */
+  options: string[];
 }
 
 export interface Order {

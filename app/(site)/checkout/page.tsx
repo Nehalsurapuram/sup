@@ -134,11 +134,16 @@ export default function CheckoutPage() {
         <ul className="mt-4 space-y-3">
           {lines.map((line) => (
             <li
-              key={line.itemId}
-              className="flex items-center justify-between text-sm"
+              key={line.lineId}
+              className="flex items-start justify-between gap-3 text-sm"
             >
               <span className="text-muted">
                 <span aria-hidden>{line.emoji}</span> {line.name} × {line.qty}
+                {line.options.length > 0 && (
+                  <span className="block text-xs opacity-80">
+                    {line.options.join(" · ")}
+                  </span>
+                )}
               </span>
               <span className="font-medium text-foreground">
                 {formatPrice(line.pricePaise * line.qty)}

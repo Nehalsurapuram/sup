@@ -29,25 +29,30 @@ export default function CartPage() {
         <div className="mt-8 space-y-3">
           {lines.map((line) => (
             <div
-              key={line.itemId}
+              key={line.lineId}
               className="flex items-center gap-4 rounded-card border border-border bg-surface p-4"
             >
               <LineThumb itemId={line.itemId} emoji={line.emoji} />
-              <div className="flex-1">
+              <div className="min-w-0 flex-1">
                 <p className="font-semibold text-foreground">{line.name}</p>
+                {line.options.length > 0 && (
+                  <p className="truncate text-xs text-muted">
+                    {line.options.join(" · ")}
+                  </p>
+                )}
                 <p className="text-sm text-muted">
-                  {formatPrice(line.pricePaise)} each
+                  {formatPrice(line.pricePaise)} each · ~{line.calories} cal
                 </p>
               </div>
 
               <div className="flex items-center gap-2">
-                <QtyButton onClick={() => setQty(line.itemId, line.qty - 1)}>
+                <QtyButton onClick={() => setQty(line.lineId, line.qty - 1)}>
                   −
                 </QtyButton>
                 <span className="w-6 text-center font-semibold text-foreground">
                   {line.qty}
                 </span>
-                <QtyButton onClick={() => setQty(line.itemId, line.qty + 1)}>
+                <QtyButton onClick={() => setQty(line.lineId, line.qty + 1)}>
                   +
                 </QtyButton>
               </div>
@@ -58,7 +63,7 @@ export default function CartPage() {
 
               <button
                 type="button"
-                onClick={() => remove(line.itemId)}
+                onClick={() => remove(line.lineId)}
                 aria-label={`Remove ${line.name}`}
                 className="text-muted transition-colors hover:text-danger"
               >

@@ -33,7 +33,7 @@ export default async function OrderPage(props: PageProps<"/order/[id]">) {
 
         <ul className="mt-8 space-y-2 text-left">
           {order.items.map((line) => (
-            <li key={line.itemId} className="flex items-center gap-3 text-sm">
+            <li key={line.lineId} className="flex items-center gap-3 text-sm">
               <LineThumb
                 itemId={line.itemId}
                 emoji={line.emoji}
@@ -41,6 +41,11 @@ export default async function OrderPage(props: PageProps<"/order/[id]">) {
               />
               <span className="flex-1 text-muted">
                 {line.name} × {line.qty}
+                {line.options.length > 0 && (
+                  <span className="block text-xs opacity-80">
+                    {line.options.join(" · ")}
+                  </span>
+                )}
               </span>
               <span className="font-medium text-foreground">
                 {formatPrice(line.pricePaise * line.qty)}
