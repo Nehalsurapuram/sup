@@ -1,27 +1,26 @@
 @import "tailwindcss";
 
 /*
-  Cafe design tokens.
-  A warm, coffee-inspired palette used across the whole app
-  (marketing site, customer ordering, staff POS, admin).
+  Caffora design tokens — deep forest green + warm cream.
+  A single cohesive dark theme used across every surface.
 */
 :root {
-  --background: #fbf7f0; /* warm cream */
-  --surface: #ffffff;
-  --surface-muted: #f3ece1;
-  --foreground: #2b211a; /* espresso */
-  --muted: #7a6a5c; /* milky brown */
-  --border: #e7dccd;
+  --background: #1e4428; /* forest green */
+  --surface: #24512f; /* cards / panels on green */
+  --surface-muted: #2c5e38; /* lighter tiles / inactive */
+  --foreground: #efe9d8; /* cream */
+  --muted: #b7c8b1; /* muted sage */
+  --border: #396b44; /* subtle green line */
 
-  --primary: #7b4b27; /* roasted brown */
-  --primary-hover: #653c1e;
-  --primary-foreground: #fdf8f2;
+  --primary: #efe9d8; /* cream button */
+  --primary-hover: #ffffff;
+  --primary-foreground: #1e4428;
 
-  --accent: #c98a3d; /* caramel */
-  --accent-foreground: #2b211a;
+  --accent: #d9a441; /* warm gold */
+  --accent-foreground: #1e4428;
 
-  --success: #3f7d4e;
-  --danger: #b3402f;
+  --success: #77c47c;
+  --danger: #e0836f;
 }
 
 @theme inline {
@@ -44,30 +43,39 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
 
-  --radius-card: 1rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1a1410;
-    --surface: #241b15;
-    --surface-muted: #2e231b;
-    --foreground: #f3e9dd;
-    --muted: #b09a88;
-    --border: #3a2c22;
-
-    --primary: #d09a5f;
-    --primary-hover: #e0ac72;
-    --primary-foreground: #1a1410;
-
-    --accent: #e0a85c;
-    --accent-foreground: #1a1410;
-  }
+  --radius-card: 1.25rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Gentle idle float for the hero cup. */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+/* Rising steam wisps. */
+@keyframes steam {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scaleY(0.9);
+  }
+  40% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-16px) scaleY(1.15);
+  }
 }
