@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { mainNav, site } from "@/lib/site";
+import { site } from "@/lib/site";
 import { CartButton } from "@/components/cart/cart-button";
+import { MainNav } from "@/components/main-nav";
 
 // Server Component: pill navigation shared across public pages.
 export function SiteHeader() {
@@ -19,22 +20,7 @@ export function SiteHeader() {
         </Link>
 
         {/* Center pill nav */}
-        <nav className="hidden items-center rounded-full bg-surface p-1.5 md:flex">
-          {mainNav.map((item, i) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={
-                "rounded-full px-5 py-2 text-sm font-semibold uppercase tracking-wide transition-colors " +
-                (i === 0
-                  ? "bg-primary text-primary-foreground"
-                  : "text-foreground hover:bg-surface-muted")
-              }
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <MainNav />
 
         {/* Icons */}
         <div className="flex items-center gap-2">
@@ -50,22 +36,7 @@ export function SiteHeader() {
       </div>
 
       {/* Mobile nav row */}
-      <nav className="flex items-center justify-center gap-1 pb-2 md:hidden">
-        {mainNav.map((item, i) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={
-              "rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wide " +
-              (i === 0
-                ? "bg-primary text-primary-foreground"
-                : "text-foreground hover:bg-surface")
-            }
-          >
-            {item.label}
-          </Link>
-        ))}
-      </nav>
+      <MainNav mobile />
 
       <span className="sr-only">{site.name}</span>
     </header>
