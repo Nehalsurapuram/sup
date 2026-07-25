@@ -10,11 +10,9 @@ import { itemImage } from "@/lib/images";
 export function ItemImage({
   item,
   className = "",
-  sizePx = 600,
 }: {
   item: MenuItem;
   className?: string;
-  sizePx?: number;
 }) {
   const [failed, setFailed] = useState(false);
   const soldOut = item.available === false;
@@ -35,7 +33,7 @@ export function ItemImage({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={itemImage(item, sizePx, Math.round(sizePx * 0.75))}
+      src={itemImage(item)}
       alt={item.name}
       loading="lazy"
       onError={() => setFailed(true)}

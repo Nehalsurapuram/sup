@@ -83,7 +83,7 @@ export function HeroCarousel({ featured }: { featured: MenuItem[] }) {
                 </div>
                 <div className="order-1 md:order-2">
                   <div className="mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-card border border-border shadow-lg">
-                    <ItemImage item={item} sizePx={700} />
+                    <ItemImage item={item} />
                   </div>
                 </div>
               </div>

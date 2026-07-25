@@ -40,7 +40,7 @@ export default async function ProductPage(props: PageProps<"/menu/[id]">) {
         <div>
           <div className="overflow-hidden rounded-card border border-border">
             <div className="aspect-square">
-              <ItemImage item={item} sizePx={800} />
+              <ItemImage item={item} />
             </div>
           </div>
           <h1 className="mt-5 font-display text-3xl font-bold text-foreground">
