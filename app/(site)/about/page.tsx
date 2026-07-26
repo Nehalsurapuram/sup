@@ -13,6 +13,13 @@ const values = [
   { emoji: "🥐", title: "Baked in-house", body: "Pastries made fresh every morning, never shipped in frozen." },
 ];
 
+const stats = [
+  { value: "2016", label: "Brewing since" },
+  { value: "12", label: "Partner farms" },
+  { value: "40+", label: "Drinks on the menu" },
+  { value: "1M+", label: "Cups poured" },
+];
+
 export default function AboutPage() {
   return (
     <>
@@ -48,6 +55,19 @@ export default function AboutPage() {
               <p className="mt-2 text-sm text-muted">{v.body}</p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-14 rounded-card border border-border bg-surface px-4 py-10 sm:px-8">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+            {stats.map((s) => (
+              <div key={s.label} className="text-center">
+                <div className="font-display text-3xl font-bold text-accent sm:text-4xl">
+                  {s.value}
+                </div>
+                <div className="mt-1 text-sm text-muted">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="mt-14 rounded-card bg-surface p-8 text-center sm:p-12">
