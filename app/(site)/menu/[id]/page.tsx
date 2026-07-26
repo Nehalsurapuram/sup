@@ -6,6 +6,7 @@ import { baseCaloriesFor } from "@/lib/customization";
 import { formatPrice } from "@/lib/format";
 import { ItemImage } from "@/components/item-image";
 import { ProductCustomizer } from "@/components/product-customizer";
+import { Tilt } from "@/components/tilt";
 
 // Pre-generate a page for every known item.
 export async function generateStaticParams() {
@@ -38,11 +39,13 @@ export default async function ProductPage(props: PageProps<"/menu/[id]">) {
       <div className="mt-4 grid gap-8 md:grid-cols-2">
         {/* Photo + info */}
         <div>
-          <div className="overflow-hidden rounded-card border border-border">
-            <div className="aspect-square">
-              <ItemImage item={item} />
+          <Tilt max={10}>
+            <div className="overflow-hidden rounded-card border border-border shadow-2xl">
+              <div className="aspect-square">
+                <ItemImage item={item} />
+              </div>
             </div>
-          </div>
+          </Tilt>
           <h1 className="mt-5 font-display text-3xl font-bold text-foreground">
             {item.name}
           </h1>

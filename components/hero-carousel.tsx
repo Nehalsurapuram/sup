@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { MenuItem } from "@/lib/types";
 import { HeroCup } from "@/components/hero-cup";
 import { ItemImage } from "@/components/item-image";
+import { Tilt } from "@/components/tilt";
 import { formatPrice } from "@/lib/format";
 import { site } from "@/lib/site";
 
@@ -82,9 +83,11 @@ export function HeroCarousel({ featured }: { featured: MenuItem[] }) {
                   </div>
                 </div>
                 <div className="order-1 md:order-2">
-                  <div className="mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-card border border-border shadow-lg">
-                    <ItemImage item={item} />
-                  </div>
+                  <Tilt max={14} className="mx-auto w-full max-w-sm">
+                    <div className="aspect-square w-full overflow-hidden rounded-card border border-border shadow-2xl">
+                      <ItemImage item={item} />
+                    </div>
+                  </Tilt>
                 </div>
               </div>
             </div>
