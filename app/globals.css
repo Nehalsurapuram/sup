@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
 /*
-  Caffora design tokens — deep forest green + warm cream.
-  A single cohesive dark theme used across every surface.
+  Caffora design tokens — warm cream + forest green (light theme).
+  A single cohesive light theme used across every surface.
 */
 :root {
-  --background: #1e4428; /* forest green */
-  --surface: #24512f; /* cards / panels on green */
-  --surface-muted: #2c5e38; /* lighter tiles / inactive */
-  --foreground: #efe9d8; /* cream */
-  --muted: #b7c8b1; /* muted sage */
-  --border: #396b44; /* subtle green line */
+  --background: #f6f1e7; /* warm cream */
+  --surface: #ffffff; /* cards / panels */
+  --surface-muted: #efe7d6; /* tiles / inactive */
+  --foreground: #22331f; /* espresso green-black text */
+  --muted: #6d7267; /* muted sage-gray */
+  --border: #e4dcc9; /* soft cream line */
 
-  --primary: #efe9d8; /* cream button */
-  --primary-hover: #ffffff;
-  --primary-foreground: #1e4428;
+  --primary: #1e4428; /* forest green button */
+  --primary-hover: #163420;
+  --primary-foreground: #f6f1e7; /* cream text on green */
 
-  --accent: #d9a441; /* warm gold */
-  --accent-foreground: #1e4428;
+  --accent: #1e7a3c; /* leaf green */
+  --accent-foreground: #ffffff;
 
-  --success: #77c47c;
-  --danger: #e0836f;
+  --success: #2f9e4f;
+  --danger: #c4472f;
 }
 
 @theme inline {
