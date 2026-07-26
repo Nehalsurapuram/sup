@@ -1,22 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
-// Subscribe to a CSS media query and re-render when it changes. Starts
-// `false` on the server / first paint, then syncs on mount so SSR output
-// stays stable (motion is treated as opt-in until we know the client).
+// Subscribe to a CSS media query and re-render when it changes. Uses
+// useSyncExternalStore so React reads the value from the browser directly
+// and stays consistent; the server snapshot is `false`, so motion is treated
+// as opt-in until the client hydrates.
 function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia(query);
-    setMatches(mq.matches);
-    const onChange = () => setMatches(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, [query]);
-
-  return matches;
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia(query);
+      mq.addEventListener("change", onChange);
+      return () => mq.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
 }
 
 /** True when the user has asked the OS to minimise animation. */
