@@ -42,7 +42,7 @@ export default async function ProductPage(props: PageProps<"/menu/[id]">) {
           <Tilt max={10}>
             <div className="overflow-hidden rounded-card border border-border shadow-2xl">
               <div className="aspect-square">
-                <ItemImage item={item} />
+                <ItemImage item={item} zoom speed={12} />
               </div>
             </div>
           </Tilt>
