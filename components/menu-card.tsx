@@ -18,10 +18,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
         className="group flex h-full flex-col overflow-hidden rounded-card border border-border bg-surface shadow-lg transition-shadow duration-300 [transform-style:preserve-3d] hover:shadow-2xl"
       >
         <div className="relative aspect-[4/3] overflow-hidden">
-          <ItemImage
-            item={item}
-            className="transition-transform duration-500 group-hover:scale-110"
-          />
+          <ItemImage item={item} zoom speed={8} />
           {/* subtle depth gradient */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
           {item.featured && !soldOut && (

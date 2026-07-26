@@ -5,14 +5,19 @@ import type { MenuItem } from "@/lib/types";
 import { itemImage } from "@/lib/images";
 
 // Product photo with a graceful fallback to the emoji tile if the image
-// fails to load (e.g. offline). Uses a plain <img> so no next/image host
-// config is needed for the external photo source.
+// fails to load. When `zoom` is set, the photo slowly zooms in and out
+// (Ken Burns), desynchronised per item for a lively 3D feel.
 export function ItemImage({
   item,
   className = "",
+  zoom = false,
+  speed = 7,
 }: {
   item: MenuItem;
   className?: string;
+  zoom?: boolean;
+  /** Seconds for a full zoom in-and-out cycle. */
+  speed?: number;
 }) {
   const [failed, setFailed] = useState(false);
   const soldOut = item.available === false;
@@ -30,6 +35,12 @@ export function ItemImage({
     );
   }
 
+  // Negative delay desynchronises each photo so the grid doesn't pulse in unison.
+  const delay = -(item.id.length % 7);
+  const zoomStyle: React.CSSProperties = zoom
+    ? { animation: `breathe ${speed}s ease-in-out ${delay}s infinite` }
+    : {};
+
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
@@ -37,8 +48,9 @@ export function ItemImage({
       alt={item.name}
       loading="lazy"
       onError={() => setFailed(true)}
+      style={zoomStyle}
       className={
-        "h-full w-full object-cover " +
+        "h-full w-full object-cover will-change-transform " +
         (soldOut ? "opacity-40 grayscale " : "") +
         className
       }

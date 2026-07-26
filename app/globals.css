@@ -65,6 +65,17 @@ body {
   }
 }
 
+/* Slow breathing zoom for product photos (Ken Burns). */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
 /* Rising steam wisps. */
 @keyframes steam {
   0% {

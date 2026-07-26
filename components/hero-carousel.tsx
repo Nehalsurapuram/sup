@@ -85,7 +85,7 @@ export function HeroCarousel({ featured }: { featured: MenuItem[] }) {
                 <div className="order-1 md:order-2">
                   <Tilt max={14} className="mx-auto w-full max-w-sm">
                     <div className="aspect-square w-full overflow-hidden rounded-card border border-border shadow-2xl">
-                      <ItemImage item={item} />
+                      <ItemImage item={item} zoom speed={10} />
                     </div>
                   </Tilt>
                 </div>
