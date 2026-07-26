@@ -49,26 +49,26 @@ function CupSvg() {
     >
       <defs>
         <linearGradient id="cupBody" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#15381f" />
-          <stop offset="0.28" stopColor="#3c8548" />
-          <stop offset="0.5" stopColor="#4a9a57" />
-          <stop offset="0.72" stopColor="#347a41" />
-          <stop offset="1" stopColor="#123219" />
+          <stop offset="0" stopColor="#5c2a12" />
+          <stop offset="0.28" stopColor="#a85a2c" />
+          <stop offset="0.5" stopColor="#c67a42" />
+          <stop offset="0.72" stopColor="#8f4622" />
+          <stop offset="1" stopColor="#4d2210" />
         </linearGradient>
         <linearGradient id="lidDome" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#1c4526" />
-          <stop offset="0.5" stopColor="#3f8b4b" />
-          <stop offset="1" stopColor="#173c20" />
+          <stop offset="0" stopColor="#6a3417" />
+          <stop offset="0.5" stopColor="#a85a2c" />
+          <stop offset="1" stopColor="#5c2a12" />
         </linearGradient>
         <linearGradient id="lidRim" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#123219" />
-          <stop offset="0.5" stopColor="#357a41" />
-          <stop offset="1" stopColor="#0f2c17" />
+          <stop offset="0" stopColor="#4d2210" />
+          <stop offset="0.5" stopColor="#8f4622" />
+          <stop offset="1" stopColor="#3d1a0c" />
         </linearGradient>
       </defs>
 
       {/* Ground shadow */}
-      <ellipse cx="180" cy="512" rx="120" ry="16" fill="#0d2413" opacity="0.55" />
+      <ellipse cx="180" cy="512" rx="120" ry="16" fill="#3d1a0c" opacity="0.4" />
 
       {/* Steam */}
       <g fill="none" stroke="#efe9d8" strokeWidth="6" strokeLinecap="round">
@@ -178,7 +178,7 @@ function CupSvg() {
         fill="url(#lidDome)"
       />
       {/* Sip hole */}
-      <ellipse cx="180" cy="112" rx="26" ry="7" fill="#0e2a16" />
+      <ellipse cx="180" cy="112" rx="26" ry="7" fill="#3d1a0c" />
     </svg>
   );
 }
