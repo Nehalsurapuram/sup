@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { MenuItem } from "@/lib/types";
 import { itemImage } from "@/lib/images";
+import { usePrefersReducedMotion } from "@/lib/hooks";
 
 // Product photo with a graceful fallback to the emoji tile if the image
 // fails to load. When `zoom` is set, the photo slowly zooms in and out
@@ -20,6 +21,7 @@ export function ItemImage({
   speed?: number;
 }) {
   const [failed, setFailed] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
   const soldOut = item.available === false;
 
   if (failed) {
@@ -37,9 +39,10 @@ export function ItemImage({
 
   // Negative delay desynchronises each photo so the grid doesn't pulse in unison.
   const delay = -(item.id.length % 7);
-  const zoomStyle: React.CSSProperties = zoom
-    ? { animation: `breathe ${speed}s ease-in-out ${delay}s infinite` }
-    : {};
+  const zoomStyle: React.CSSProperties =
+    zoom && !reducedMotion
+      ? { animation: `breathe ${speed}s ease-in-out ${delay}s infinite` }
+      : {};
 
   return (
     // eslint-disable-next-line @next/next/no-img-element

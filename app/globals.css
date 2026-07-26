@@ -90,3 +90,19 @@ body {
     transform: translateY(-16px) scaleY(1.15);
   }
 }
+
+/*
+ * Respect the user's reduced-motion preference. The interactive components
+ * also gate motion in JS, but this catches the pre-hydration first paint so
+ * these users never see a flash of animation.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

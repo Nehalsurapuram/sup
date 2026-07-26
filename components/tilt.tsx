@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { usePointerMotion } from "@/lib/hooks";
 
 // Reusable 3D tilt wrapper. Rotates its contents toward the cursor in
 // real perspective and lifts with a dynamic shadow. Children can use
@@ -18,13 +19,14 @@ export function Tilt({
   scale?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const enabled = usePointerMotion();
   const [style, setStyle] = useState<React.CSSProperties>({
     transform: "rotateX(0deg) rotateY(0deg) scale(1)",
   });
 
   function handleMove(e: React.MouseEvent) {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !enabled) return;
     const r = el.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width - 0.5; // -0.5..0.5
     const py = (e.clientY - r.top) / r.height - 0.5;
