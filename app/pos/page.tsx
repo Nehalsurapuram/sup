@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import type { Order, OrderStatus } from "@/lib/types";
 import { getActiveOrders } from "@/lib/data/orders";
 import { OrderTicket } from "@/components/pos/order-ticket";
@@ -68,9 +69,9 @@ export default async function PosPage() {
       {orders.length === 0 && (
         <p className="mt-10 text-center text-muted">
           No active orders yet. Place one from the{" "}
-          <a href="/menu" className="text-accent hover:underline">
+          <Link href="/menu" className="text-accent hover:underline">
             customer menu
-          </a>{" "}
+          </Link>{" "}
           to see it appear here.
         </p>
       )}
