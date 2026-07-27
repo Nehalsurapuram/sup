@@ -8,7 +8,7 @@ import {
   groupsForCategory,
   type Selection,
 } from "@/lib/customization";
-import { useCart } from "@/components/cart/cart-context";
+import { useCart } from "@/components/cart/cart-store";
 import { formatPrice } from "@/lib/format";
 
 // Starbucks-style customizer: pick size / milk / shots / syrups / toppings

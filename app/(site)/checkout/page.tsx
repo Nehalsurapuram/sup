@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useCart } from "@/components/cart/cart-context";
+import { useCart } from "@/components/cart/cart-store";
 import { formatPrice } from "@/lib/format";
 import { placeOrder } from "@/lib/actions";
 import type { OrderType } from "@/lib/types";

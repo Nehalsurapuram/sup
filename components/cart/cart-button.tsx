@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCart } from "@/components/cart/cart-context";
+import { useCart } from "@/components/cart/cart-store";
 
 // Header cart icon with a live item-count badge.
 export function CartButton() {
